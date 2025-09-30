@@ -1,3 +1,6 @@
-export { User } from './user.entity';
-export { Schedule } from './schedule.entity';
-export { TransportSetting } from './transport-setting.entity';
+export { User } from './user.entity'
+export { Schedule } from './schedule.entity'
+export { TransportSetting } from './transport-setting.entity'
+export { LocationLog } from './location-log.entity'
+export { PhotoMemory } from './photo-memory.entity'
+export { PhotoTag } from './photo-tag.entity'
