@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './auth/auth.module';
 import { TransportModule } from './transport/transport.module';
+import { PnuModule } from './pnu/pnu.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { TransportModule } from './transport/transport.module';
     DatabaseModule,
     AuthModule,
     TransportModule,
+    PnuModule,
   ],
   controllers: [AppController],
   providers: [AppService],
