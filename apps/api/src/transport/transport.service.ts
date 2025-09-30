@@ -20,7 +20,7 @@ export class TransportService {
       'https://api.odsay.com/v1/api/searchPubTransPathT',
       {
         params: {
-          apiKey: 'RvGyUmh9c1eYcFGniziD7pWJreACd2Cv77ujCKnM/9o',
+          apiKey: process.env.TRANSPORT_API_KEY,
           SX: payload.start_x,
           SY: payload.start_y,
           EX: payload.end_x,
