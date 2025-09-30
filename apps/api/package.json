@@ -18,12 +18,12 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "db:start": "./scripts/db.sh start",
-    "db:stop": "./scripts/db.sh stop",
-    "db:restart": "./scripts/db.sh restart",
-    "db:logs": "./scripts/db.sh logs",
-    "db:clean": "./scripts/db.sh clean",
-    "db:status": "./scripts/db.sh status",
+    "db:start": "sh ./scripts/db.sh start",
+    "db:stop": "sh ./scripts/db.sh stop",
+    "db:restart": "sh ./scripts/db.sh restart",
+    "db:logs": "sh ./scripts/db.sh logs",
+    "db:clean": "sh ./scripts/db.sh clean",
+    "db:status": "sh ./scripts/db.sh status",
     "dev": "npm run db:start && npm run start:dev"
   },
   "dependencies": {
