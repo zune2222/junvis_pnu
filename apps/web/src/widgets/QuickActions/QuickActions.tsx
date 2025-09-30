@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { Button } from '../../shared/ui'
 
 export function QuickActions() {
   const actions = [
@@ -55,7 +54,7 @@ export function QuickActions() {
       
       <div className="grid grid-cols-2 gap-4">
         {actions.map((action) => (
-          <Link key={action.id} href={action.href}>
+          <Link key={action.id} href={action.href as any}>
             <div className={`p-4 rounded-xl border transition-all duration-200 cursor-pointer group ${getColorClasses(action.color)}`}>
               <div className="text-2xl mb-3 group-hover:scale-110 transition-transform duration-200">
                 {action.icon}

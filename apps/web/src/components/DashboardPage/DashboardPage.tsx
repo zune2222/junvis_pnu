@@ -6,7 +6,7 @@ import { TransportStatus } from '../../widgets/TransportStatus'
 import { QuickActions } from '../../widgets/QuickActions'
 import { mockUserInfo } from '../../shared/lib/mock-data'
 
-export function DashboardPage() {
+export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* 헤더 */}

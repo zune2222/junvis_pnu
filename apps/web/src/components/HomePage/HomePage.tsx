@@ -4,7 +4,7 @@ import { FeatureSection } from '../../widgets/FeatureSection'
 import { CTASection } from '../../widgets/CTASection'
 import { Footer } from '../../widgets/Footer'
 
-export function HomePage() {
+export default function HomePage() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <Header />

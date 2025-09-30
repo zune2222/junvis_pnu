@@ -3,7 +3,7 @@ import { ThemeToggle } from '../../features/ThemeToggle'
 import { Button } from '../../shared/ui'
 import { mockSchedule, mockUserInfo } from '../../shared/lib/mock-data'
 
-export function SchedulePage() {
+export default function SchedulePage() {
   const isConnected = true // Mock data - 실제로는 연동 상태 확인
 
   return (

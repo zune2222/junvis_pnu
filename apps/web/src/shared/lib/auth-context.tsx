@@ -45,7 +45,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             localStorage.removeItem('user')
             setUser(null)
           })
-      } catch (error) {
+      } catch {
         localStorage.removeItem('token')
         localStorage.removeItem('user')
         setUser(null)
@@ -61,8 +61,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       localStorage.setItem('token', response.accessToken)
       localStorage.setItem('user', JSON.stringify(response.user))
       setUser(response.user)
-    } catch (error: any) {
-      const message = error.response?.data?.message || '로그인에 실패했습니다'
+    } catch (error: unknown) {
+      const message = (error as { response?: { data?: { message?: string } } })?.response?.data?.message || '로그인에 실패했습니다'
       throw new Error(message)
     }
   }
@@ -78,8 +78,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       localStorage.setItem('token', response.accessToken)
       localStorage.setItem('user', JSON.stringify(response.user))
       setUser(response.user)
-    } catch (error: any) {
-      const message = error.response?.data?.message || '회원가입에 실패했습니다'
+    } catch (error: unknown) {
+      const message = (error as { response?: { data?: { message?: string } } })?.response?.data?.message || '회원가입에 실패했습니다'
       throw new Error(message)
     }
   }

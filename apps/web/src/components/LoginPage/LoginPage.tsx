@@ -7,7 +7,7 @@ import { ThemeToggle } from '../../features/ThemeToggle'
 import { Button } from '../../shared/ui'
 import { useAuth } from '../../shared/lib/auth-context'
 
-export function LoginPage() {
+export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -24,8 +24,8 @@ export function LoginPage() {
     try {
       await login(email, password)
       router.push('/dashboard')
-    } catch (err: any) {
-      setError(err.message)
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {
       setIsLoading(false)
     }

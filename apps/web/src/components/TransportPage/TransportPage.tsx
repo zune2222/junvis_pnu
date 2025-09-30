@@ -1,10 +1,9 @@
 import Link from 'next/link'
 import { ThemeToggle } from '../../features/ThemeToggle'
 import { Button } from '../../shared/ui'
-import { mockTransportInfo, mockUserInfo } from '../../shared/lib/mock-data'
+import { mockTransportInfo } from '../../shared/lib/mock-data'
 
-export function TransportPage() {
-  const isNotificationEnabled = true // Mock data - 실제로는 사용자 설정 확인
+export default function TransportPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">

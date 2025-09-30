@@ -3,7 +3,7 @@ import { Button } from '../../shared/ui'
 
 export function NextClass() {
   const nextClass = mockSchedule.find(s => s.status === 'upcoming')
-  const recommendedBus = mockTransportInfo[0]
+  const recommendedBus = mockTransportInfo[0] || null
   
   if (!nextClass) {
     return (
@@ -60,16 +60,20 @@ export function NextClass() {
           </span>
         </div>
         
-        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-          <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full text-xs font-medium">
-            {recommendedBus.busNumber}번
-          </span>
-          <span>버스 · {recommendedBus.arrivalTime}분 후 도착</span>
-        </div>
-        
-        <div className="mt-2 text-sm text-green-600 dark:text-green-400">
-          ✅ {recommendedBus.recommendation}
-        </div>
+        {recommendedBus && (
+          <>
+            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+              <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full text-xs font-medium">
+                {recommendedBus.busNumber}번
+              </span>
+              <span>버스 · {recommendedBus.arrivalTime}분 후 도착</span>
+            </div>
+            
+            <div className="mt-2 text-sm text-green-600 dark:text-green-400">
+              ✅ {recommendedBus.recommendation}
+            </div>
+          </>
+        )}
       </div>
       
       <div className="flex gap-3">

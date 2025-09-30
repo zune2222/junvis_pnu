@@ -7,7 +7,7 @@ import { ThemeToggle } from '../../features/ThemeToggle'
 import { Button } from '../../shared/ui'
 import { useAuth } from '../../shared/lib/auth-context'
 
-export function RegisterPage() {
+export default function RegisterPage() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -48,8 +48,8 @@ export function RegisterPage() {
       
       await register(registerData)
       router.push('/dashboard')
-    } catch (err: any) {
-      setError(err.message)
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {
       setIsLoading(false)
     }

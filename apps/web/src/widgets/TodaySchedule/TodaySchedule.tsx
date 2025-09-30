@@ -21,7 +21,7 @@ export function TodaySchedule() {
       
       <div className="space-y-4">
         {mockSchedule.map((schedule) => {
-          const scheduleHour = parseInt(schedule.time.split(':')[0])
+          const scheduleHour = parseInt(schedule.time.split(':')[0] || '0')
           const isNext = scheduleHour > currentHour && schedule.status === 'upcoming'
           const isPast = scheduleHour < currentHour
           
