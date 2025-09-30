@@ -37,7 +37,7 @@ export class TransportService {
     } else {
       const data = res.data.result;
 
-      const paths: PathDto = data.path.map((e) => ({
+      const paths: PathDto[] = data.path.map((e) => ({
         pathId: e.info.mapObj,
         pathType: e.pathType,
         totalTime: e.info.totalTime,

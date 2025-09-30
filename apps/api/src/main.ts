@@ -10,11 +10,13 @@ async function bootstrap() {
       'http://localhost:3000',
       'http://localhost:3001',
       'https://junvis-pnu-web.vercel.app',
+      'https://*.vercel.app',
       process.env.CORS_ORIGIN,
     ].filter(Boolean),
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
     credentials: true,
+    optionsSuccessStatus: 200,
   });
 
   // Validation Pipe 설정
