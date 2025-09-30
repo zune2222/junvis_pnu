@@ -99,7 +99,7 @@ export class LifelogController {
   )
   async uploadPhoto(
     @Request() req: any,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() file: any,
     @Body() uploadPhotoDto: UploadPhotoDto,
   ) {
     if (!file) {
