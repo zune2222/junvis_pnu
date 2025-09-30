@@ -5,7 +5,7 @@ import { User, Schedule, TransportSetting, LocationLog, PhotoMemory, PhotoTag } 
 import * as crypto from 'crypto'
 
 if (!global.crypto) {
-  global.crypto = crypto.webcrypto as any
+  global.crypto = crypto.webcrypto as any;
 }
 
 @Module({

@@ -2,7 +2,30 @@ import { mockSchedule, mockTransportInfo } from '../../shared/lib/mock-data'
 import { Button } from '../../shared/ui'
 
 export function NextClass() {
-  const nextClass = mockSchedule.find(s => s.status === 'upcoming')
+  const currentTime = new Date()
+  const currentHour = currentTime.getHours()
+  const currentMinute = currentTime.getMinutes()
+  const dayMap = {
+    0: 'sunday',
+    1: 'monday', 
+    2: 'tuesday',
+    3: 'wednesday',
+    4: 'thursday',
+    5: 'friday',
+    6: 'saturday'
+  }
+  const currentDay = dayMap[currentTime.getDay() as keyof typeof dayMap]
+  
+  // 오늘 남은 수업 중 다음 수업 찾기
+  const todaysSchedule = mockSchedule.filter(schedule => schedule.day === currentDay)
+  const nextClass = todaysSchedule.find(schedule => {
+    const timeParts = schedule.time.split(' - ')[0]?.split(':')
+    if (!timeParts || timeParts.length < 2) return false
+    const scheduleHour = Number(timeParts[0])
+    const scheduleMinute = Number(timeParts[1])
+    return scheduleHour > currentHour || (scheduleHour === currentHour && scheduleMinute > currentMinute)
+  })
+  
   const recommendedBus = mockTransportInfo[0] || null
   
   if (!nextClass) {

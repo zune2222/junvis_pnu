@@ -14,40 +14,43 @@ import { PhotoMemory } from './photo-memory.entity'
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id: string
+  id: string;
 
   @Column({ unique: true })
-  email: string
+  email: string;
 
   @Column()
-  password: string
+  password: string;
 
   @Column()
-  name: string
+  name: string;
 
   @Column({ name: 'student_id', unique: true, nullable: true })
-  studentId?: string
+  studentId?: string;
 
   @Column({ nullable: true })
-  major?: string
+  major?: string;
 
   @Column({ nullable: true })
-  semester?: string
+  semester?: string;
 
   @Column({ name: 'pnu_user_id', nullable: true })
-  pnuUserId?: string
+  pnuUserId?: string;
 
   @Column({ name: 'pnu_password', nullable: true })
-  pnuPassword?: string
+  pnuPassword?: string;
 
   @Column({ name: 'is_pnu_connected', default: false })
-  isPnuConnected: boolean
+  isPnuConnected: boolean;
 
   @OneToMany(() => Schedule, (schedule) => schedule.user)
-  schedules: Schedule[]
+  schedules: Schedule[];
 
-  @OneToMany(() => TransportSetting, (transportSetting) => transportSetting.user)
-  transportSettings: TransportSetting[]
+  @OneToMany(
+    () => TransportSetting,
+    (transportSetting) => transportSetting.user,
+  )
+  transportSettings: TransportSetting[];
 
   @OneToMany(() => LocationLog, (locationLog) => locationLog.user)
   locationLogs: LocationLog[]
@@ -56,8 +59,8 @@ export class User {
   photoMemories: PhotoMemory[]
 
   @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date
+  createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date
+  updatedAt: Date;
 }

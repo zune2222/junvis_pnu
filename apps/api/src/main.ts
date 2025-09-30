@@ -7,6 +7,7 @@ import { join } from 'path';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+
   // CORS 설정
   app.enableCors({
     origin: [
@@ -42,4 +43,4 @@ async function bootstrap() {
 
   console.log(`🚀 API Server running on http://localhost:${port}/api`);
 }
-bootstrap();
+void bootstrap();

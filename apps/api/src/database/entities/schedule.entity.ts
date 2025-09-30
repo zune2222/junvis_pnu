@@ -6,48 +6,48 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
-} from 'typeorm'
-import { User } from './user.entity'
+} from 'typeorm';
+import { User } from './user.entity';
 
 @Entity('schedules')
 export class Schedule {
   @PrimaryGeneratedColumn('uuid')
-  id: string
+  id: string;
 
   @Column({ name: 'user_id' })
-  userId: string
+  userId: string;
 
   @ManyToOne(() => User, (user) => user.schedules)
   @JoinColumn({ name: 'user_id' })
-  user: User
+  user: User;
 
   @Column()
-  subject: string
+  subject: string;
 
   @Column({ nullable: true })
-  professor?: string
+  professor?: string;
 
   @Column({ nullable: true })
-  location?: string
+  location?: string;
 
   @Column({ name: 'day_of_week' })
-  dayOfWeek: number // 0=일요일, 1=월요일, ...
+  dayOfWeek: number; // 0=일요일, 1=월요일, ...
 
   @Column({ name: 'start_time' })
-  startTime: string // HH:MM 형식
+  startTime: string; // HH:MM 형식
 
   @Column({ name: 'end_time' })
-  endTime: string // HH:MM 형식
+  endTime: string; // HH:MM 형식
 
   @Column()
-  semester: string
+  semester: string;
 
   @Column({ name: 'is_from_pnu', default: false })
-  isFromPnu: boolean
+  isFromPnu: boolean;
 
   @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date
+  createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date
+  updatedAt: Date;
 }
