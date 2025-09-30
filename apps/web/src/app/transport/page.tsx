@@ -1,15 +1,15 @@
-import TransportPage from '../../components/TransportPage/TransportPage'
-import { ProtectedRoute } from '../../shared/lib/protected-route'
+import TransportResultPage from "../../components/TransportPage/TransportResultPage";
+import { ProtectedRoute } from "../../shared/lib/protected-route";
 
-export default function Transport() {
+export default function TransportResult() {
   return (
     <ProtectedRoute>
-      <TransportPage />
+      <TransportResultPage />
     </ProtectedRoute>
-  )
+  );
 }
 
 export const metadata = {
-  title: '교통정보 - 준비스 (JunVIS)',
-  description: '부산대학교 학생을 위한 스마트 캠퍼스 교통정보'
-}
+  title: "경로 탐색 결과 - 준비스 (JunVIS)",
+  description: "부산대학교 학생을 위한 스마트 캠퍼스 경로 탐색 결과",
+};

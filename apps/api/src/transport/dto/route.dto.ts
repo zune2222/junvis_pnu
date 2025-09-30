@@ -15,7 +15,7 @@ export class RouteData {
   busCount: number;
   subwayCount: number;
   subwayBusCount: number;
-  path: PathDto;
+  path: PathDto[];
 }
 
 export class PathDto {
