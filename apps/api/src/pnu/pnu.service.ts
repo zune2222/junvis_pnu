@@ -28,6 +28,7 @@ export interface UserInfoResponse {
     studentId?: string;
     name?: string;
     major?: string;
+    college?: string;
     semester?: string;
     grade?: string;
   };

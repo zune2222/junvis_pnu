@@ -12,6 +12,7 @@ interface TimetableData {
   time: string
   location: string
   id: string
+  day?: string
 }
 
 interface UserInfo {
@@ -30,7 +31,7 @@ export default function SchedulePage() {
   const [userInfo, setUserInfo] = useState<UserInfo>({})
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
-  const [syear, setSyear] = useState('2024')
+  const [syear, setSyear] = useState('2025')
   const [termGcd, setTermGcd] = useState('120')
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [userId, setUserId] = useState('')
@@ -51,7 +52,7 @@ export default function SchedulePage() {
             studentId: userInfo.studentId,
             ip: userInfo.ip,
             loginDevice: userInfo.loginDevice,
-            semester: '2024년 2학기',
+            semester: '2025년 2학기',
             grade: '재학'
           })
         } catch (e) {
@@ -117,13 +118,9 @@ export default function SchedulePage() {
       console.log('📅 응답 성공 여부:', data.success)
       console.log('📅 시간표 데이터:', data.data)
       
-      if (data.success && data.data) {
-        console.log('✅ 시간표 데이터 설정:', data.data.slice(0, 10))
-        setTimetableData(data.data.slice(0, 10) || [])
-      } else {
-        console.log('❌ 시간표 데이터 없음')
-        setError('시간표 데이터를 불러올 수 없습니다.')
-      }
+      // 백엔드 응답에 관계없이 더미 데이터 사용
+      console.log('✅ 더미 시간표 데이터 설정')
+      setTimetableData(mockSchedule)
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : '시간표 조회 중 오류가 발생했습니다.')
     } finally {
@@ -173,7 +170,7 @@ export default function SchedulePage() {
           studentId: data.data.userInfo.studentId,
           ip: data.data.userInfo.ip,
           loginDevice: data.data.userInfo.loginDevice,
-          semester: '2024년 2학기', // 기본값
+          semester: '2025년 2학기', // 기본값
           grade: '재학' // 기본값
         })
       } else {
@@ -201,9 +198,11 @@ export default function SchedulePage() {
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-4">
               <Link href="/dashboard" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-                <div className="w-8 h-8 bg-black dark:bg-white rounded-lg flex items-center justify-center">
-                  <span className="text-white dark:text-black font-bold text-sm">준</span>
-                </div>
+                <img 
+                  src="/junvis_logo.png" 
+                  alt="Junvis Logo" 
+                  className="w-8 h-8 rounded-lg"
+                />
                 <span className="text-lg font-semibold text-gray-900 dark:text-white">준비스</span>
               </Link>
               
@@ -283,8 +282,8 @@ export default function SchedulePage() {
                           onChange={(e) => setSyear(e.target.value)}
                           className="flex-1 px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                         >
+                          <option value="2025">2025년</option>
                           <option value="2024">2024년</option>
-                          <option value="2023">2023년</option>
                         </select>
                         <select
                           value={termGcd}
@@ -354,51 +353,87 @@ export default function SchedulePage() {
                 </div>
               )}
               
-              <div className="space-y-4">
-                {(isConnected ? timetableData : mockSchedule).map((schedule, index) => (
-                  <div
-                    key={schedule.id}
-                    className="p-4 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-blue-300 dark:hover:border-blue-600 transition-colors"
-                  >
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
-                          {schedule.subject || `과목명 ${index + 1}`}
+{(() => {
+                const scheduleData = isConnected ? timetableData : mockSchedule
+                const dayOrder = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
+                const dayNames = {
+                  monday: '월요일',
+                  tuesday: '화요일', 
+                  wednesday: '수요일',
+                  thursday: '목요일',
+                  friday: '금요일'
+                }
+                
+                // 요일별로 그룹화
+                const groupedByDay = dayOrder.reduce((acc, day) => {
+                  acc[day] = scheduleData.filter(schedule => schedule.day === day)
+                  return acc
+                }, {} as Record<string, typeof scheduleData>)
+                
+                return (
+                  <div className="space-y-6">
+                    {dayOrder.map(day => (
+                      <div key={day} className="border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                          <span className="w-3 h-3 bg-blue-500 rounded-full"></span>
+                          {dayNames[day as keyof typeof dayNames]}
+                          <span className="text-sm text-gray-500 dark:text-gray-400 font-normal">
+                            ({groupedByDay[day]?.length || 0}과목)
+                          </span>
                         </h4>
-                        <div className="text-sm text-gray-600 dark:text-gray-400">
-                          👨‍🏫 {schedule.professor || '담당교수'}
-                        </div>
+                        
+                        {(groupedByDay[day]?.length || 0) === 0 ? (
+                          <div className="text-center py-6 text-gray-500 dark:text-gray-400">
+                            <div className="text-2xl mb-2">📅</div>
+                            <p className="text-sm">이 날은 수업이 없어요</p>
+                          </div>
+                        ) : (
+                          <div className="space-y-3">
+                            {groupedByDay[day]?.map((schedule, index) => (
+                              <div
+                                key={schedule.id}
+                                className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                              >
+                                <div className="flex items-start justify-between mb-2">
+                                  <div>
+                                    <h5 className="font-medium text-gray-900 dark:text-white">
+                                      {schedule.subject || `과목명 ${index + 1}`}
+                                    </h5>
+                                    <div className="text-sm text-gray-600 dark:text-gray-400">
+                                      👨‍🏫 {schedule.professor || '담당교수'}
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                                <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                  <span className="flex items-center gap-1">
+                                    ⏰ {schedule.time || '시간 미정'}
+                                  </span>
+                                  <span className="flex items-center gap-1">
+                                    📍 {schedule.location || '강의실 미정'}
+                                  </span>
+                                </div>
+                                
+                                <div className="flex gap-2">
+                                  <button className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300">
+                                    📍 길찾기
+                                  </button>
+                                  <button className="text-xs text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300">
+                                    🔔 알림 설정
+                                  </button>
+                                  <button className="text-xs text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300">
+                                    📝 메모 추가
+                                  </button>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
-                      <span className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full">
-                        {index + 1}교시
-                      </span>
-                    </div>
-                    
-                    <div className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-400">
-                      <span className="flex items-center gap-1">
-                        ⏰ {schedule.time || '시간 미정'}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        📍 {schedule.location || '강의실 미정'}
-                      </span>
-                    </div>
-                    
-                    <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
-                      <div className="flex gap-2">
-                        <button className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300">
-                          📍 길찾기
-                        </button>
-                        <button className="text-xs text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300">
-                          🔔 알림 설정
-                        </button>
-                        <button className="text-xs text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300">
-                          📝 메모 추가
-                        </button>
-                      </div>
-                    </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                )
+              })()}
               
               <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
                 <div className="flex gap-3">

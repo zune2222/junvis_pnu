@@ -3,6 +3,17 @@ import { mockSchedule } from '../../shared/lib/mock-data'
 export function TodaySchedule() {
   const currentTime = new Date()
   const currentHour = currentTime.getHours()
+  const dayMap = {
+    0: 'sunday',
+    1: 'monday', 
+    2: 'tuesday',
+    3: 'wednesday',
+    4: 'thursday',
+    5: 'friday',
+    6: 'saturday'
+  }
+  const currentDay = dayMap[currentTime.getDay() as keyof typeof dayMap]
+  const todaysSchedule = mockSchedule.filter(schedule => schedule.day === currentDay)
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
@@ -19,10 +30,21 @@ export function TodaySchedule() {
         </span>
       </div>
       
-      <div className="space-y-4">
-        {mockSchedule.map((schedule) => {
+      {todaysSchedule.length === 0 ? (
+        <div className="text-center py-8">
+          <div className="text-4xl mb-4">🎉</div>
+          <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-400 mb-2">
+            오늘은 수업이 없어요!
+          </h3>
+          <p className="text-sm text-gray-500 dark:text-gray-500">
+            편히 쉬시거나 다른 일정을 확인해보세요
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {todaysSchedule.map((schedule) => {
           const scheduleHour = parseInt(schedule.time.split(':')[0] || '0')
-          const isNext = scheduleHour > currentHour && schedule.status === 'upcoming'
+          const isNext = scheduleHour > currentHour
           const isPast = scheduleHour < currentHour
           
           return (
@@ -62,7 +84,8 @@ export function TodaySchedule() {
             </div>
           )
         })}
-      </div>
+        </div>
+      )}
     </div>
   )
 }
