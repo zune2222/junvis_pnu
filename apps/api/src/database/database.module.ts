@@ -1,11 +1,11 @@
-import { Module } from '@nestjs/common'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { ConfigModule, ConfigService } from '@nestjs/config'
-import { User, Schedule, TransportSetting } from './entities'
-import * as crypto from 'crypto'
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { User, Schedule, TransportSetting } from './entities';
+import * as crypto from 'crypto';
 
 if (!global.crypto) {
-  global.crypto = crypto.webcrypto as any
+  global.crypto = crypto.webcrypto as any;
 }
 
 @Module({

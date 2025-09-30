@@ -6,33 +6,33 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
-} from 'typeorm'
-import { User } from './user.entity'
+} from 'typeorm';
+import { User } from './user.entity';
 
 @Entity('transport_settings')
 export class TransportSetting {
   @PrimaryGeneratedColumn('uuid')
-  id: string
+  id: string;
 
   @Column({ name: 'user_id' })
-  userId: string
+  userId: string;
 
   @ManyToOne(() => User, (user) => user.transportSettings)
   @JoinColumn({ name: 'user_id' })
-  user: User
+  user: User;
 
   @Column({ name: 'bus_number' })
-  busNumber: string
+  busNumber: string;
 
   @Column({ name: 'notification_time' })
-  notificationTime: number // 분 단위
+  notificationTime: number; // 분 단위
 
   @Column({ name: 'is_enabled', default: true })
-  isEnabled: boolean
+  isEnabled: boolean;
 
   @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date
+  createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date
+  updatedAt: Date;
 }
