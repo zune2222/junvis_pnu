@@ -60,9 +60,11 @@ export default function RegisterPage() {
       {/* 헤더 */}
       <div className="absolute top-6 left-6 right-6 flex justify-between items-center">
         <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-          <div className="w-8 h-8 bg-black dark:bg-white rounded-lg flex items-center justify-center">
-            <span className="text-white dark:text-black font-bold text-sm">준</span>
-          </div>
+          <img 
+            src="/junvis_logo.png" 
+            alt="Junvis Logo" 
+            className="w-8 h-8 rounded-lg"
+          />
           <span className="text-lg font-semibold text-gray-900 dark:text-white">준비스</span>
         </Link>
         <ThemeToggle />
@@ -70,9 +72,11 @@ export default function RegisterPage() {
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center">
-          <div className="mx-auto w-16 h-16 bg-black dark:bg-white rounded-2xl flex items-center justify-center mb-6">
-            <span className="text-white dark:text-black font-bold text-2xl">준</span>
-          </div>
+          <img 
+            src="/junvis_logo.png" 
+            alt="Junvis Logo" 
+            className="mx-auto w-16 h-16 rounded-2xl mb-6"
+          />
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
             회원가입
           </h2>
