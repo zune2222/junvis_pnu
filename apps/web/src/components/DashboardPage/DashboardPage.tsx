@@ -92,6 +92,12 @@ export default function DashboardPage() {
             >
               🔔 알림 설정하기
             </Link>
+            <Link
+              href="/lifelog" 
+              className="px-6 py-3 border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white rounded-xl font-medium transition-colors text-center"
+            >
+              📍 라이프로그 보기
+            </Link>
           </div>
         </div>
       </main>

@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { User, Schedule, TransportSetting } from './entities';
-import * as crypto from 'crypto';
+import { Module } from '@nestjs/common'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import { User, Schedule, TransportSetting, LocationLog, PhotoMemory, PhotoTag } from './entities'
+import * as crypto from 'crypto'
 
 if (!global.crypto) {
   global.crypto = crypto.webcrypto as any;
@@ -19,7 +19,7 @@ if (!global.crypto) {
         username: configService.get('DATABASE_USERNAME'),
         password: configService.get('DATABASE_PASSWORD'),
         database: configService.get('DATABASE_NAME'),
-        entities: [User, Schedule, TransportSetting],
+        entities: [User, Schedule, TransportSetting, LocationLog, PhotoMemory, PhotoTag],
         synchronize: configService.get('NODE_ENV') === 'development',
         logging: configService.get('NODE_ENV') === 'development',
       }),
